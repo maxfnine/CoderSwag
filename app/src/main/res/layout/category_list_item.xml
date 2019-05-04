@@ -12,7 +12,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" android:scaleType="centerCrop"
-            tools:src="@drawable/hatimage" android:contentDescription="TODO"/>
+            tools:src="@drawable/hatimage" android:contentDescription="background"
+            android:paddingTop="4dp" android:layout_marginTop="4dp" android:layout_marginBottom="4dp"/>
     <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
