@@ -9,12 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.coderswag.Model.Product
 import com.example.coderswag.R
-import kotlinx.android.synthetic.main.product_list_item.view.*
 
-class ProductsAdapter(val context: Context,val products:List<Product> ): RecyclerView.Adapter<ProductsAdapter.ProductHolder>() {
+class ProductsAdapter(val context: Context,val products:List<Product>,val itemClick:(Product)->Unit ): RecyclerView.Adapter<ProductsAdapter.ProductHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ProductHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.product_list_item,parent,false)
-        return ProductHolder(view)
+        return ProductHolder(view,itemClick)
     }
 
     override fun getItemCount(): Int {
@@ -25,16 +24,17 @@ class ProductsAdapter(val context: Context,val products:List<Product> ): Recycle
         productHolder?.bindProduct(products[position],context)
     }
 
-    inner class ProductHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val productImage:ImageView = itemView?.findViewById(R.id.productImage)
+    inner class ProductHolder(itemView: View,val itemClick:(Product)->Unit): RecyclerView.ViewHolder(itemView){
+        val productImage:ImageView = itemView?.findViewById(R.id.showProductImage)
         val productName:TextView = itemView?.findViewById(R.id.productName)
-        val productPrice:TextView = itemView?.findViewById(R.id.productPrice)
+        val productPrice:TextView = itemView?.findViewById(R.id.showPrice)
 
         fun bindProduct(product:Product,context: Context){
             val resourceId = context.resources.getIdentifier(product.image,"drawable",context.packageName)
             productImage?.setImageResource(resourceId)
             productName?.text = product.title
             productPrice?.text = product.price
+            itemView.setOnClickListener{itemClick(product)}
 
 
         }
